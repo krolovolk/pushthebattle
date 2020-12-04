@@ -18,13 +18,14 @@ import PushupItem from "./PushupItem.vue";
 
 export default {
   props: {
-    msg: String
+    msg: String,
+    pushups: Array
   },
   components: {
     PushupItem
   },
   computed: mapState({
-    pushups: state => state.pushups
+    // pushups: state => state.pushups
   })
 };
 </script>

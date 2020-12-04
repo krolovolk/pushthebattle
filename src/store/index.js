@@ -13,5 +13,15 @@ export default new Vuex.Store({
   },
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {},
+  getters: {
+    pushupsAll: state => {
+      return state.pushups;
+    },
+    pushupsByUser: state => name => {
+      return state.pushups.filter(
+        pushup => pushup.name.toLowerCase() === name.toLowerCase()
+      );
+    }
+  }
 });
