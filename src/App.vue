@@ -1,10 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo-bang.png" />
+    <img alt="Bang" class="logo" src="./assets/logo-bang.png" />
     <br />
     <button @click="setPushupsByUser('антон')">Все Антоны</button>
     <button @click="setPushupsByUser('Денис')">Все Денисы</button>
     <button @click="setPushupsAll">Все</button>
+    <br /><br />
+    <select v-model="selectedName">
+      <option disabled value="">Выберите Имя</option>
+      <option>Антон</option>
+      <option>Денис</option>
+    </select>
+    <input
+      v-model.number="inputSum"
+      placeholder="Сколько отжался Антон"
+      type="number"
+      min="1"
+    />
+    <button @click="addPushupsAnton()">Добавить</button>
+    <br />
     <PushupList msg="Let's Push up!" :pushups="filteredPushups" />
   </div>
 </template>
@@ -17,7 +31,9 @@ export default {
   name: "App",
   data() {
     return {
-      filteredPushups: this.$store.state.pushups
+      filteredPushups: this.$store.state.pushups,
+      inputSum: "",
+      selectedName: ""
     };
   },
   components: {
@@ -35,6 +51,17 @@ export default {
     },
     setPushupsAll() {
       this.filteredPushups = this.pushupsAll;
+    },
+    addPushupsAnton() {
+      console.log("click", typeof this.inputSum);
+      if (this.inputSum && this.selectedName) {
+        const curPushup = {
+          name: this.selectedName,
+          date: new Date().toLocaleString(),
+          sum: this.inputSum
+        };
+        this.$store.commit("addPushups", curPushup);
+      }
     }
   }
 };
@@ -47,6 +74,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  .logo {
+    width: 100%;
+    max-width: 300px;
+    padding: 30px 0;
+  }
 }
 </style>

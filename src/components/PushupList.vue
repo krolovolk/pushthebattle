@@ -4,8 +4,8 @@
     <div class="pu-list">
       <PushupItem
         class="pu-list__item"
-        v-for="note in pushups"
-        :key="note.id"
+        v-for="(note, index) in pushups"
+        :key="index"
         :note="note"
       />
     </div>
